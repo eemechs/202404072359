@@ -32,7 +32,7 @@ jobs:
         run: terragrunt run-all plan --terragrunt-non-interactive
         working-directory: ${{ env.WORKING_DIRECTORY }}
         env:
-          HASHI_CLOUD_TOKEN: '${{ secrets.HASHI_CLOUD_TOKEN  }}'
+          TF_CLOUD_TOKEN: '${{ secrets.TF_CLOUD_TOKEN  }}'
   
   deploy:
     needs: plan
@@ -55,4 +55,4 @@ jobs:
         run: terragrunt run-all apply --terragrunt-non-interactive --terragrunt-no-auto-approve
         working-directory: ${{ env.WORKING_DIRECTORY }}
         env:
-          HASHI_CLOUD_TOKEN: '${{ secrets.HASHI_CLOUD_TOKEN }}'
+          TF_CLOUD_TOKEN: '${{ secrets.TF_CLOUD_TOKEN }}'
