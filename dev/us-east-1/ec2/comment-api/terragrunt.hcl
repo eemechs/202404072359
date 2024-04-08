@@ -18,6 +18,10 @@ include {
   path = find_in_parent_folders()
 }
 
+inputs = {
+  user_data = file("${get_terragrunt_dir()}/template/api_server.tpl")
+}
+
 # Use this block just to Localstack tests
 // generate "provider" {
 //   path = "provider.tf"
