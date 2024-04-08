@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'app/image/**'
-      - '.github/workflows/image-build.yml'
+      - .github/workflows/image-build.yml
 
 env:
   WORKING_DIRECTORY: './app/image'
@@ -20,21 +20,14 @@ jobs:
     - name: Build the Docker image
       id: build-image
       run: |
-        cd $WORKING_DIRECTORY
         IMAGE_TAG="dev"
         docker build . --file Dockerfile --tag eemechs/comments-api:$IMAGE_TAG
         echo "::set-output name=image_tag::$IMAGE_TAG"
-     
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    
-    - name: Build and push
+    - name: Push the Docker image
       uses: docker/build-push-action@v2
       with:
-        context: .
-        push: true
-        tags: eemechs/comments-api:$IMAGE_TAG
-
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: eemechs/comments-api
+        tag_with_ref: false
+        tags: ${{ steps.build-image.outputs.image_tag }}
