@@ -2,7 +2,7 @@ name: 'Core Infrastructure'
 on:
   push:
     paths:
-      - 'dev/us-east/**'
+      - 'dev/**'
       - .github/workflows/dev.yml
 
 env:
