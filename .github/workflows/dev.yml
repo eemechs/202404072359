@@ -1,0 +1,58 @@
+name: 'Core Infrastructure'
+on:
+  push:
+    paths:
+      - 'dev/us-east/**'
+      - .github/workflows/dev.yml
+
+env:
+  WORKING_DIRECTORY: './dev/us-east/ec2/comment-api'
+  TF_VERSION: 1.4.6
+  TG_VERSION: 0.45.16
+
+jobs:
+  plan:
+    name: 'build'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+          terraform_wrapper: false
+
+      - name: Setup Terragrunt
+        uses: autero1/action-terragrunt@v1.3.2
+        with:
+          terragrunt_version: ${{ env.TG_VERSION }}
+
+      - name: 'Terragrunt Plan'
+        run: terragrunt run-all plan --terragrunt-non-interactive
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        env:
+          HASHI_CLOUD_TOKEN: '${{ secrets.HASHI_CLOUD_TOKEN  }}'
+  
+  deploy:
+    needs: plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+          terraform_wrapper: false
+
+      - name: Setup Terragrunt
+        uses: autero1/action-terragrunt@v1.3.2
+        with:
+          terragrunt_version: ${{ env.TG_VERSION }}
+      - name: 'Terragrunt Apply'
+        continue-on-error: true
+        run: terragrunt run-all apply --terragrunt-non-interactive --terragrunt-no-auto-approve
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        env:
+          HASHI_CLOUD_TOKEN: '${{ secrets.HASHI_CLOUD_TOKEN }}'

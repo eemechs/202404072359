@@ -1,27 +1,29 @@
-# Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
-# working directory, into a temporary folder, and execute your Terraform commands in that folder.
+# terragrunt.hcl
+include "root" {
+  path = find_in_parent_folders()
+}
+
 terraform {
     source = "git::github.com/terraform-aws-modules/terraform-aws-ec2-instance.git//?ref=v5.6.1"
-    extra_arguments "custom_vars" {
-    commands = ["apply", "console", "destroy", "import", "plan", "push", "refresh"]
-
-
-    # With the get_terragrunt_dir() function, you can use relative paths!
-      arguments = [
-        "-var-file=local.tfvars",
-      ]
-  }
-}
-#       
-# Include all settings from the root terragrunt.hcl file
-include {
-  path = find_in_parent_folders()
 }
 
 inputs = {
   user_data = file("${get_terragrunt_dir()}/template/api_server.tpl")
 }
 
+generate "tfvars" {
+  path      = "terragrunt.auto.tfvars"
+  if_exists = "overwrite"
+  disable_signature = true
+  contents = <<-EOF
+ami                           = "ami-051f8a213df8bc089"
+create_spot_instance          = true
+create_iam_instance_profile   = true
+instance_type                 = "t2.micro"
+monitoring                    = true
+name                          = "ec2-comment-api"
+EOF
+}
 # Use this block just to Localstack tests
 // generate "provider" {
 //   path = "provider.tf"
