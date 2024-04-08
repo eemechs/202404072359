@@ -49,15 +49,11 @@ curl -sv localhost:8000/api/comment/list/2
 
 * Automação da infra, provisionamento dos hosts (IaaS)
 
-Para esse quesito, escolhi provisionar uma instância ec2 com terragrunt, utilizando o módulo oficial da haschicorp
-
 * Automação de setup e configuração dos hosts (IaC)
 
-A configuração do host ficou a cargo do template, que configura a instância
+* Pipeline de deploy automatizado
 
-* Pipeline de deploy automatizado : Não consegui entregar
-
-* Monitoramento dos serviços e métricas da aplicação: Não consegui entregar
+* Monitoramento dos serviços e métricas da aplicação
 
 
 # Dicas
