@@ -20,7 +20,7 @@ jobs:
     - name: Build the Docker image
       id: build-image
       run: |
-        IMAGE_TAG="${{ env.GITHUB_REF_NAME }}"
+        IMAGE_TAG="${{ env.GITHUB_SHA}}"
         docker build . --file Dockerfile --tag eemechs/comments-api:$IMAGE_TAG
         echo "::set-output name=image_tag::$IMAGE_TAG"
     - name: Push the Docker image
