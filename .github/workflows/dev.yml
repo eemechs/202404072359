@@ -6,7 +6,7 @@ on:
       - .github/workflows/dev.yml
 
 env:
-  WORKING_DIRECTORY: './dev/us-east/ec2/comment-api'
+  WORKING_DIRECTORY: './dev'
   TF_VERSION: 1.4.6
   TG_VERSION: 0.45.16
 
