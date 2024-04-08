@@ -32,7 +32,7 @@ jobs:
         run: terragrunt run-all plan --terragrunt-non-interactive
         working-directory: ${{ env.WORKING_DIRECTORY }}
         env:
-          TF_CLOUD_TOKEN: '${{ secrets.TF_CLOUD_TOKEN  }}'
+          TF_TOKEN_APP_TERRAFORM_IO: '${{ secrets.TF_TOKEN_APP_TERRAFORM_IO  }}'
   
   deploy:
     needs: plan
@@ -55,4 +55,4 @@ jobs:
         run: terragrunt run-all apply --terragrunt-non-interactive --terragrunt-no-auto-approve
         working-directory: ${{ env.WORKING_DIRECTORY }}
         env:
-          TF_CLOUD_TOKEN: '${{ secrets.TF_CLOUD_TOKEN }}'
+          TF_TOKEN_APP_TERRAFORM_IO: '${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}'
