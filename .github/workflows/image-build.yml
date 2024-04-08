@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'app/image/**'
-      - .github/workflows/image-build.yml
+      - '.github/workflows/image-build.yml'
 
 env:
   WORKING_DIRECTORY: './app/image'
@@ -20,6 +20,7 @@ jobs:
     - name: Build the Docker image
       id: build-image
       run: |
+        cd $WORKING_DIRECTORY
         IMAGE_TAG="dev"
         docker build . --file Dockerfile --tag eemechs/comments-api:$IMAGE_TAG
         echo "::set-output name=image_tag::$IMAGE_TAG"
@@ -31,3 +32,4 @@ jobs:
         repository: eemechs/comments-api
         tag_with_ref: false
         tags: ${{ steps.build-image.outputs.image_tag }}
+
