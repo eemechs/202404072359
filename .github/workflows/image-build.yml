@@ -6,29 +6,20 @@ on:
       - 'app/image/**'
       - .github/workflows/image-build.yml
 
-env:
-  WORKING_DIRECTORY: './app/image'
-
 jobs:
-
-  build:
-
+  docker:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      id: build-image
-      run: |
-        cd $WORKING_DIRECTORY
-        IMAGE_TAG="dev"
-        docker build . --file Dockerfile --tag eemechs/comments-api:$IMAGE_TAG
-        echo "::set-output name=image_tag::$IMAGE_TAG"
-    - name: Push the Docker image
-      uses: docker/build-push-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: eemechs/comments-api
-        tag_with_ref: false
-        tags: ${{ steps.build-image.outputs.image_tag }}
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./app/image
+          load: true
+          tags: eemechs/comments-api:latest
