@@ -22,6 +22,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - 
+        name: Get Short GitHub SHA
+        run: echo "SHORT_GITHUB_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       -
         name: Build
         uses: docker/build-push-action@v5
@@ -29,5 +32,5 @@ jobs:
           context: ./app/image
           push: true
           tags: |
-            eemechs/comments-api:${{ github.sha }}
             eemechs/comments-api:latest
+            eemechs/comments-api:${{ env.SHORT_GITHUB_SHA }}
