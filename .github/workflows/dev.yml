@@ -12,7 +12,7 @@ on:
 env:
   WORKING_DIRECTORY: './dev'
   TF_VERSION: 1.4.6
-  TG_VERSION: 0.45.16
+  TG_VERSION: 0.48.0
 
 jobs:
   plan:
@@ -30,7 +30,7 @@ jobs:
       - name: Setup Terragrunt
         uses: autero1/action-terragrunt@v3.0.2
         with:
-          terragrunt_version: ${{ env.TG_VERSION }}
+          terragrunt-version: ${{ env.TG_VERSION }}
 
       - name: 'Terragrunt Plan'
         run: terragrunt run-all plan --terragrunt-non-interactive
@@ -53,7 +53,7 @@ jobs:
       - name: Setup Terragrunt
         uses: autero1/action-terragrunt@v3.0.2
         with:
-          terragrunt_version: ${{ env.TG_VERSION }}
+          terragrunt-version: ${{ env.TG_VERSION }}
       - name: 'Terragrunt Apply'
         continue-on-error: true
         run: terragrunt run-all apply --terragrunt-non-interactive
