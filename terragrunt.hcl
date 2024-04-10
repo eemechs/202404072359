@@ -17,8 +17,5 @@ terraform {
     }
   }
 }
-
-provider "aws" {}
-
 EOF
 }

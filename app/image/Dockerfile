@@ -1,4 +1,4 @@
-FROM python:3.7.4-alpine
+FROM python:3.7.4-alpine3.9@sha256:fd16c98a1809316497413e3fba99c8098e48071a93eb71bb9e6131eeca98b26a
 
 WORKDIR /app
 

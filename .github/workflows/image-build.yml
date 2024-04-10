@@ -22,4 +22,6 @@ jobs:
         with:
           context: ./app/image
           load: true
-          tags: eemechs/comments-api:latest
+          tags: |
+            eemechs/comments-api:${{ github.sha }}
+            eemechs/comments-api:latest

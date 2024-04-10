@@ -4,7 +4,7 @@ networks:
   frontend:
 services:
   web:
-    image: 'eemechs/comments-api-dev:v1.0.0'
+    image: 'eemechs/comments-api:latest'
     restart: always
     container_name: 'comments-api'
     ports:
