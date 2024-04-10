@@ -13,7 +13,7 @@ terraform {
     hostname = "${local.tfc_hostname}"
     organization = "${local.tfc_organization}"
     workspaces {
-      name = "${local.workspace}/${reverse(split("/", get_terragrunt_dir()))[0]}
+      name = "${local.workspace_path}/${reverse(split("/", get_terragrunt_dir()))[0]}"
     }
   }
 }
