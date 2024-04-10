@@ -14,6 +14,8 @@ Referência: https://registry.terraform.io/modules/terraform-aws-modules/ec2-ins
 - Implementação de uma esteira de Integração Contínua (CI) e Entrega Contínua (CD) utilizando GitHub Actions para automatizar o processo de build, teste e deploy da aplicação.
 
 - Utilização do Terraform Cloud para gerenciamento e aprovação das alterações na infraestrutura, permitindo a revisão e aprovação das mudanças de forma centralizada e auditável.
+![alt text](images/terraformcloud.png)
+
 - Integração com o CloudWatch Logs para monitoramento e registro dos acessos da aplicação, permitindo uma análise detalhada do comportamento e desempenho do sistema.
 Referência: https://docs.docker.com/config/containers/logging/awslogs/
 
