@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: us-east-1          
-  ECR_REPOSITORY: comments-api
+  ECR_REPOSITORY: public.ecr.aws/f8n0u2q9/comments-api
   WORKING_DIRECTORY: './app/image'
 
 permissions:
