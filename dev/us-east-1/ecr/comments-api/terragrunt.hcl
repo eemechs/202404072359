@@ -13,6 +13,7 @@ generate "tfvars" {
   disable_signature = true
   contents = <<-EOF
 repository_name = "comments-api"
+repository_type = "public"
 create_lifecycle_policy = false
 EOF
 }
