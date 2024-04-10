@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - 'dev/**'
-      - 'app/image/**'
       - .github/workflows/dev.yml
 
 env:
