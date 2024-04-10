@@ -39,12 +39,11 @@ __EOF__
   #Configuring Docker daemon to log rotation
   sudo sh -c 'cat << EOF >> /etc/docker/daemon.json
   {
-    "log-driver": "json-file",
+    "log-driver": "awslogs",
     "log-opts": {
-    "max-size": "500m",
-    "max-file": "3",
-    "labels": "api_server_logs",
-    "env": "dev"
+      "awslogs-region": "us-east-1",
+      "awslogs-group": "/awc/ec2/acess-logs/comment-api/"
+      "awslogs-create-group":"true"
     }
   }
 EOF'

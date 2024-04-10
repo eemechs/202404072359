@@ -20,7 +20,8 @@ monitoring                    = true
 name                          = "ec2-comment-api"
 
 iam_role_policies = {
-  "AmazonSSMManagedInstanceCore" : "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  "AmazonSSMManagedInstanceCore" : "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+  "CloudWatchLogsFullAccess" : "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }
 user_data = "${filebase64("${get_terragrunt_dir()}/template/api_server.tpl")}"
 EOF
