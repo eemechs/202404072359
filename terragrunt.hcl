@@ -1,7 +1,7 @@
 locals {
   tfc_hostname     = "app.terraform.io" 
-  tfc_organization = "platform-labs"
-  workspace        = reverse(split("/", get_terragrunt_dir()))[0]
+  tfc_organization = "globo-adtech"
+  workspace        = "dev"
 }
 
 generate "remote_state" {
