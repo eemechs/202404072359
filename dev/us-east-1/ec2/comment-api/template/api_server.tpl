@@ -42,8 +42,8 @@ __EOF__
     "log-driver": "awslogs",
     "log-opts": {
       "awslogs-region": "us-east-1",
-      "awslogs-group": "/awc/ec2/acess-logs/comment-api/"
-      "awslogs-create-group":"true"
+      "awslogs-group": "/awc/ec2/acess-logs/comment-api/",
+      "awslogs-create-group": "true"
     }
   }
 EOF'
