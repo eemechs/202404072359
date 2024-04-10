@@ -9,6 +9,8 @@ Referência: https://registry.terraform.io/modules/terraform-aws-modules/ec2-ins
 
 - Integração com o Docker Hub como repositório de imagens para facilitar o armazenamento e distribuição dos artefatos.
 
+![alt text](images/dockerhub.png)
+
 - Implementação de uma esteira de Integração Contínua (CI) e Entrega Contínua (CD) utilizando GitHub Actions para automatizar o processo de build, teste e deploy da aplicação.
 
 - Utilização do Terraform Cloud para gerenciamento e aprovação das alterações na infraestrutura, permitindo a revisão e aprovação das mudanças de forma centralizada e auditável.

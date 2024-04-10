@@ -56,7 +56,7 @@ jobs:
           terragrunt_version: ${{ env.TG_VERSION }}
       - name: 'Terragrunt Apply'
         continue-on-error: true
-        run: terragrunt run-all apply --terragrunt-non-interactive --terragrunt-auto-approve
+        run: terragrunt run-all apply --terragrunt-non-interactive
         working-directory: ${{ env.WORKING_DIRECTORY }}
         env:
           TF_TOKEN_APP_TERRAFORM_IO: '${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}'
