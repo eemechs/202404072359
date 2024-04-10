@@ -60,16 +60,16 @@ sudo sh -c "cat << EOF > ${SERVER_HOME}/docker-compose.yaml
 ---
 version: '3.6'
 networks:
-  frontend:
+  backend:
 services:
   web:
-    image: 'eemechs/comments-api-dev:v1.0.0'
+    image: 'eemechs/comments-api:latest'
     restart: always
     container_name: 'comments-api'
     ports:
       - '8000:8000'
     networks:
-      - frontend
+      - backend
 EOF"
 
 #Execute docker compose to run Api Server container
