@@ -67,7 +67,8 @@ services:
     restart: always
     container_name: 'comments-api'
     ports:
-      - '8000:8000'
+      - '80:8000'
+      - '443:8000
     networks:
       - backend
 EOF"
