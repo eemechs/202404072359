@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: us-east-1          
-  ECR_REPOSITORY: public.ecr.aws/f8n0u2q9/comments-api
+  ECR_REPOSITORY: comments-api
   WORKING_DIRECTORY: './app/image'
 
 permissions:
@@ -30,13 +30,30 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
-
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
-
+  
     - name: Get Short GitHub SHA
       run: echo "SHORT_GITHUB_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+    - name: Login to Amazon ECR Public
+      id: login-ecr-public
+      uses: aws-actions/amazon-ecr-login@v2
+      with:
+        registry-type: public
+
+    - name: Build, tag, and push docker image to Amazon ECR Public
+      env:
+        REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+        REGISTRY_ALIAS: f8n0u2q9
+        REPOSITORY: comments-api
+        IMAGE_TAG: ${{ env.SHORT_GITHUB_SHA }}
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
+        docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+  
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
