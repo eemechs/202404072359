@@ -21,7 +21,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./app/image
-          load: true
+          push: true
           tags: |
             eemechs/comments-api:${{ github.sha }}
             eemechs/comments-api:latest
