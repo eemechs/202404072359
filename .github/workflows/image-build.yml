@@ -29,5 +29,5 @@ jobs:
           context: ./app/image
           push: true
           tags: |
-            eemechs/comments-api:${{ github.sha }}
+            eemechs/comments-api:${{ github.job }}
             eemechs/comments-api:latest
