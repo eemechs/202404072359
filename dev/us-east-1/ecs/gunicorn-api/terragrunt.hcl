@@ -47,7 +47,7 @@ cluster_name = "comments-api"
           cpu       = 512
           memory    = 1024
           essential = true
-          image     = "664693334577.dkr.ecr.us-east-1.amazonaws.com/comments-api:latest"
+          image     = "public.ecr.aws/f8n0u2q9/comments-api:latest"
           port_mappings = [
             {
               name          = "comments-api"
