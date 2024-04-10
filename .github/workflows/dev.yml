@@ -4,6 +4,7 @@ on:
     paths:
       - 'dev/**'
       - .github/workflows/dev.yml
+  
   workflow_run:
     workflows: ["Docker Image CI"]
     types:

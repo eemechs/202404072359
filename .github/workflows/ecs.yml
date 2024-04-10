@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: us-east-1          
-  ECR_REPOSITORY: comment-api
+  ECR_REPOSITORY: comments-api
   WORKING_DIRECTORY: './app/image'
 
 permissions:
@@ -39,7 +39,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
+        # IMAGE_TAG: ${{ github.sha }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         # Build a docker container and
@@ -47,6 +47,7 @@ jobs:
         # be deployed to ECS.
         echo "IMAGE_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
