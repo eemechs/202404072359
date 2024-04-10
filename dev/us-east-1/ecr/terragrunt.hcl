@@ -12,7 +12,7 @@ generate "tfvars" {
   if_exists = "overwrite"
   disable_signature = true
   contents = <<-EOF
-repository_name = "comment-api"
+repository_name = "comments-api"
 create_lifecycle_policy = false
 EOF
 }
