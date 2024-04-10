@@ -14,12 +14,6 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
-        name: Set short git commit SHA
-        id: vars
-        run: |
-          calculatedSha=$(git rev-parse --short ${{ github.sha }})
-          echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
-      -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       -
@@ -35,5 +29,5 @@ jobs:
           context: ./app/image
           push: true
           tags: |
-            eemechs/comments-api:${{ steps.vars.outputs.COMMIT_SHORT_SHA }}
+            eemechs/comments-api:${{ github.sha }}
             eemechs/comments-api:latest
