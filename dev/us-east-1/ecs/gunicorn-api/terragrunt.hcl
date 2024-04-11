@@ -13,6 +13,7 @@ generate "tfvars" {
   disable_signature = true
   contents = <<-EOF
 cluster_name = "comments-api"
+create_task_exec_iam_role = true
 
   cluster_configuration = {
     execute_command_configuration = {
@@ -38,7 +39,7 @@ cluster_name = "comments-api"
 
   services = {
     comments-api = {
-      cpu    = 1024
+      cpu    = 2048
       memory = 4096
 
       container_definitions = {
@@ -56,48 +57,48 @@ cluster_name = "comments-api"
             }
           ]
 
-          enable_cloudwatch_logging = true
+          enable_cloudwatch_logging = false
+
           log_configuration = {
             logDriver = "awslogs"
             options = {
-              awslogs-group = "/aws/ecs/acess-logs/comments-api/"
+              awslogs-group = "/aws/ecs/comments-api"
               awslogs-region = "us-east-1"
-              awslogs-create-group = "true"
-              awslogs-stream-prefix = "dev"
+              awslogs-stream-prefix = "ecs"
             }
           }
           memory_reservation = 100
+
+          mount_points = [
+            {
+              container_path = "/var/tmp"
+              source_volume  = "ephemeral-volume"
+              read_only      = false
+            }
+          ]
         }
       }
+      
+      assign_public_ip = true
 
-      // service_connect_configuration = {
-      //   service = {
-      //     client_alias = {
-      //       port     = 8000
-      //       dns_name = "comments-api"
-      //     }
-      //     port_name      = "comments-api"
-      //     discovery_name = "comments-api"
-      //   }
-      // }
-
-      // load_balancer = {
-      //   service = {
-      //     target_group_arn = "arn:aws:elasticloadbalancing:eu-west-1:1234567890:targetgroup/bluegreentarget1/209a844cd01825a4"
-      //     container_name   = "ecs-sample"
-      //     container_port   = 8000
-      //   }
-      // }
-
-      subnet_ids = ["subnet-0c3b52af38f256786", "subnet-075f694a8b04ef458", "subnet-0d1d822b8d8ca2950"]
+      subnet_ids = ["subnet-0d1d822b8d8ca2950", "subnet-075f694a8b04ef458", "subnet-0d1d822b8d8ca2950"]
       security_group_rules = {
+        # Allow inbound HTTPS traffic for ECR access
+        ecr_access = {
+          type                     = "ingress"
+          from_port                = 443
+          to_port                  = 443
+          protocol                 = "tcp"
+          description              = "Allow HTTPS access for ECR"
+          cidr_blocks              = ["0.0.0.0/0"]  # Restrict if possible in production
+        }
         alb_ingress_8000 = {
           type                     = "ingress"
-          from_port                = 80
+          from_port                = 8000
           to_port                  = 8000
           protocol                 = "tcp"
           description              = "Service port"
-          source_security_group_id = "sg-05e32b253d35ed751"
+          source_security_group_id = "sg-0cf4cc83a2755a18d"
         }
         egress_all = {
           type        = "egress"
