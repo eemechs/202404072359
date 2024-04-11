@@ -50,6 +50,7 @@ Referência: https://docs.docker.com/config/containers/logging/awslogs/
 
 Com estas melhorias, a aplicação está preparada para operar de forma mais eficiente e escalável, mantendo os padrões de qualidade e segurança.
 
+```sh
 ├── app
 │ ├── compose.yaml
 │ ├── image
@@ -87,3 +88,4 @@ Com estas melhorias, a aplicação está preparada para operar de forma mais efi
 ├── README.md
 └── terragrunt.hcl
 
+```
