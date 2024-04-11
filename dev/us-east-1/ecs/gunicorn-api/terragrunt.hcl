@@ -43,42 +43,52 @@ create_task_exec_iam_role = true
       memory = 4096
 
       container_definitions = {
+          comment-api = {
+            cpu       = 512
+            memory    = 1024
+            essential = true
+            image     = "public.ecr.aws/f8n0u2q9/comments-api:latest"
 
-        comment-api = {
-          cpu       = 512
-          memory    = 1024
-          essential = true
-          image     = "public.ecr.aws/f8n0u2q9/comments-api:latest"
-          port_mappings = [
-            {
-              name          = "comments-api"
-              containerPort = 8000
-              protocol      = "tcp"
+            mount_points = [
+              {
+                sourceVolume      = "tmp-volume"
+                containerPath     = "/tmp"
+                readOnly          = false
+              }
+            ]
+
+            port_mappings = [
+              {
+                name          = "comments-api"
+                containerPort = 8000
+                protocol      = "tcp"
+              }
+            ]
+
+            enable_cloudwatch_logging = false
+
+            log_configuration = {
+              logDriver = "awslogs"
+              options = {
+                awslogs-group = "/aws/ecs/comments-api"
+                awslogs-region = "us-east-1"
+                awslogs-stream-prefix = "ecs"
+              }
             }
-          ]
-
-          enable_cloudwatch_logging = false
-
-          log_configuration = {
-            logDriver = "awslogs"
-            options = {
-              awslogs-group = "/aws/ecs/comments-api"
-              awslogs-region = "us-east-1"
-              awslogs-stream-prefix = "ecs"
+            memory_reservation = 100
+          }
+        }
+        
+        volume = [
+          {
+            name = "tmp-volume"
+            tmpfs  = {
+              container_path = "/tmp"
+              size           = 512
             }
           }
-          memory_reservation = 100
+        ]
 
-          mount_points = [
-            {
-              container_path = "/var/tmp"
-              source_volume  = "ephemeral-volume"
-              read_only      = false
-            }
-          ]
-        }
-      }
-      
       assign_public_ip = true
 
       subnet_ids = ["subnet-0d1d822b8d8ca2950", "subnet-075f694a8b04ef458", "subnet-0d1d822b8d8ca2950"]
