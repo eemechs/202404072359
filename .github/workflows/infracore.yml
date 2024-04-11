@@ -3,10 +3,10 @@ on:
   push:
     paths:
       - 'dev/**'
-      - .github/workflows/dev.yml
+      - .github/workflows/infracore.yml
   
   workflow_run:
-    workflows: ["Docker Image CI"]
+    workflows: ["Build Imagen to Amazon ECR"]
     types:
       - completed
 
